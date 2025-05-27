@@ -1,48 +1,10 @@
-<script type="text/javascript">
-        var gk_isXlsx = false;
-        var gk_xlsxFileLookup = {};
-        var gk_fileData = {};
-        function filledCell(cell) {
-          return cell !== '' && cell != null;
-        }
-        function loadFileData(filename) {
-        if (gk_isXlsx && gk_xlsxFileLookup[filename]) {
-            try {
-                var workbook = XLSX.read(gk_fileData[filename], { type: 'base64' });
-                var firstSheetName = workbook.SheetNames[0];
-                var worksheet = workbook.Sheets[firstSheetName];
-
-                // Convert sheet to JSON to filter blank rows
-                var jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1, blankrows: false, defval: '' });
-                // Filter out blank rows (rows where all cells are empty, null, or undefined)
-                var filteredData = jsonData.filter(row => row.some(filledCell));
-
-                // Heuristic to find the header row by ignoring rows with fewer filled cells than the next row
-                var headerRowIndex = filteredData.findIndex((row, index) =>
-                  row.filter(filledCell).length >= filteredData[index + 1]?.filter(filledCell).length
-                );
-                // Fallback
-                if (headerRowIndex === -1 || headerRowIndex > 25) {
-                  headerRowIndex = 0;
-                }
-
-                // Convert filtered JSON back to CSV
-                var csv = XLSX.utils.aoa_to_sheet(filteredData.slice(headerRowIndex)); // Create a new sheet from filtered array of arrays
-                csv = XLSX.utils.sheet_to_csv(csv, { header: 1 });
-                return csv;
-            } catch (e) {
-                console.error(e);
-                return "";
-            }
-        }
-        return gk_fileData[filename] || "";
-        }
-        </script><!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sedot WC Murah dari INFINITY SEDOT, 100% Lancar!</title>
+    <meta name="description" content="Layanan sedot WC murah dari INFINITY SEDOT, 100% lancar & amanah! Solusi sanitasi terpercaya untuk Semarang, Kendal, Ungaran, Demak, Kudus, Pati, dan area lainnya. Hubungi kami sekarang!">
+    <title>Sedot WC Murah | 100% Lancar & Amanah!</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <style>
         body {
@@ -79,18 +41,33 @@
         .card:hover {
             transform: translateY(-5px);
         }
-        .btn {
+        .link-btn {
+            display: block;
+            text-align: center;
+            padding: 0.75rem;
+            background: #4f46e5;
+            color: white;
+            border-radius: 9999px;
+            text-decoration: none;
+            font-weight: bold;
+            margin: 0.5rem 0;
+            transition: background 0.3s ease;
+        }
+        .link-btn:hover {
+            background: #4338ca;
+        }
+        .cta-btn {
             display: inline-block;
             padding: 0.75rem 1.5rem;
-            background: #4f46e5;
+            background: #10b981;
             color: white;
             border-radius: 9999px;
             text-decoration: none;
             font-weight: bold;
             transition: background 0.3s ease;
         }
-        .btn:hover {
-            background: #4338ca;
+        .cta-btn:hover {
+            background: #059669;
         }
         footer {
             background: #1f2937;
@@ -111,84 +88,91 @@
 <body>
     <div class="hero">
         <div>
-            <h1 class="text-4xl md:text-5xl font-bold">Sedot WC Murah dari INFINITY SEDOT, 100% Lancar!</h1>
-            <p class="text-lg mt-2">Solusi sanitasi terjangkau untuk rumah Anda</p>
+            <h1 class="text-4xl md:text-5xl font-bold">Sedot WC Murah | 100% Lancar & Amanah!</h1>
+            <p class="text-lg mt-2">Solusi Sanitasi Terpercaya dari INFINITY SEDOT</p>
+            <a href="https://infinitysedot.id/" class="cta-btn mt-4">Hubungi Kami Sekarang</a>
         </div>
     </div>
     <div class="container">
         <section class="card">
             <h2 class="text-2xl font-semibold text-indigo-600">Mengapa Sedot WC Penting?</h2>
             <p class="mt-4 text-gray-700">
-                Sanitasi adalah kunci untuk menjaga kesehatan dan kenyamanan di rumah Anda. Septic tank yang penuh dapat menyebabkan masalah serius seperti toilet mampet, bau tidak sedap, hingga pencemaran lingkungan. Di INFINITY SEDOT, kami menawarkan layanan <strong><a href="https://infinitysedot.id/" class="text-indigo-600 hover:underline">sedot WC murah</a></strong> yang memastikan sistem sanitasi Anda berfungsi optimal tanpa menguras kantong Anda.
+                Sanitasi adalah elemen penting untuk menjaga kesehatan dan kenyamanan di rumah Anda. Septic tank yang penuh dapat menyebabkan masalah seperti toilet mampet, bau tidak sedap, hingga pencemaran lingkungan. Dengan layanan <strong><a href="https://infinitysedot.id/" class="text-indigo-600 hover:underline">sedot WC murah</a></strong> dari INFINITY SEDOT, kami menjamin solusi sanitasi yang 100% lancar dan amanah, memberikan Anda ketenangan pikiran tanpa perlu khawatir tentang biaya mahal.
             </p>
             <p class="mt-4 text-gray-700">
-                Artikel ini akan menjelaskan pentingnya layanan sedot WC, manfaat memilih INFINITY SEDOT, tips memilih penyedia jasa yang tepat, dan bagaimana kami menjamin kepuasan pelanggan dengan layanan yang cepat, profesional, dan terjangkau. Dengan INFINITY SEDOT, Anda mendapatkan solusi sanitasi yang 100% lancar!
-            </p>
-        </section>
-        <section class="card">
-            <h2 class="text-2xl font-semibold text-indigo-600">Pentingnya Perawatan Septic Tank</h2>
-            <p class="mt-4 text-gray-700">
-                Septic tank adalah komponen vital dalam sistem sanitasi rumah tangga, terutama di daerah yang tidak memiliki akses ke saluran pembuangan kota. Septic tank menampung limbah dari toilet, wastafel, dan saluran air lainnya, lalu menguraikannya secara alami. Namun, limbah padat yang menumpuk seiring waktu dapat menyebabkan septic tank penuh, yang berpotensi menimbulkan masalah serius.
-            </p>
-            <p class="mt-4 text-gray-700">
-                Tanpa perawatan rutin, Anda mungkin menghadapi toilet yang sulit disiram, genangan air di kamar mandi, atau bahkan kebocoran limbah yang mencemari lingkungan sekitar. Bau tak sedap juga dapat mengganggu kenyamanan keluarga dan tetangga. Dengan layanan sedot WC murah dari <a href="https://infinitysedot.id/" class="text-indigo-600 hover:underline">INFINITY SEDOT</a>, Anda dapat mencegah masalah ini dengan biaya yang terjangkau.
-            </p>
-            <p class="mt-4 text-gray-700">
-                Kami merekomendasikan untuk menyedot septic tank setidaknya setiap 2-3 tahun, tergantung pada ukuran tangki dan jumlah penghuni rumah. Dengan perawatan rutin, Anda dapat menghindari biaya perbaikan yang jauh lebih besar di masa depan.
+                Artikel ini akan menjelaskan mengapa perawatan septic tank penting, keunggulan layanan INFINITY SEDOT, area layanan kami, tips memilih penyedia jasa terpercaya, dan bagaimana Anda dapat memanfaatkan layanan kami untuk kebutuhan sanitasi Anda.
             </p>
         </section>
         <section class="card">
-            <h2 class="text-2xl font-semibold text-indigo-600">Keunggulan Layanan Sedot WC Murah dari INFINITY SEDOT</h2>
+            <h2 class="text-2xl font-semibold text-indigo-600">Perawatan Septic Tank untuk Sanitasi yang Sehat</h2>
             <p class="mt-4 text-gray-700">
-                Memilih layanan <a href="https://infinitysedot.id/" class="text-indigo-600 hover:underline">Sedot WC</a> dari INFINITY SEDOT memberikan Anda banyak keuntungan, baik dari segi biaya maupun kualitas layanan. Berikut adalah beberapa manfaat yang akan Anda dapatkan:
+                Septic tank adalah komponen utama dalam sistem sanitasi rumah tangga, terutama di daerah tanpa akses saluran pembuangan kota. Tangki ini menampung dan menguraikan limbah dari toilet, kamar mandi, dan dapur. Namun, penumpukan limbah padat dapat menyebabkan septic tank penuh, yang berpotensi menimbulkan masalah seperti toilet yang sulit disiram, genangan air, atau kebocoran limbah yang berbahaya bagi lingkungan.
+            </p>
+            <p class="mt-4 text-gray-700">
+                Tanpa penanganan rutin, septic tank yang penuh dapat menghasilkan bau tak sedap yang mengganggu kenyamanan keluarga dan tetangga. Lebih parah lagi, limbah yang bocor dapat mencemari air tanah, membahayakan kesehatan masyarakat. Layanan sedot WC murah dari <a href="https://infinitysedot.id/" class="text-indigo-600 hover:underline">INFINITY SEDOT</a> hadir untuk mencegah masalah ini dengan harga terjangkau dan pelayanan yang amanah.
+            </p>
+            <p class="mt-4 text-gray-700">
+                Kami merekomendasikan untuk menyedot septic tank setiap 2-3 tahun, tergantung pada kapasitas tangki dan jumlah penghuni rumah. Dengan perawatan rutin, Anda dapat menghindari kerusakan sistem sanitasi dan biaya perbaikan yang lebih besar.
+            </p>
+        </section>
+        <section class="card">
+            <h2 class="text-2xl font-semibold text-indigo-600">Area Layanan Yang Tersedia Saat Ini</h2>
+            <p class="mt-4 text-gray-700">
+                INFINITY SEDOT melayani berbagai wilayah di Jawa Tengah dengan layanan sedot WC murah yang cepat dan terpercaya. Berikut adalah area layanan kami:
+            </p>
+            <a href="https://infinitysedot.id/jasa-sedot-wc-semarang-terbaik-infinity-sedot/" class="link-btn">Sedot WC Semarang</a>
+            <a href="https://infinitysedot.id/jasa-sedot-wc-kendal-terbaik-infinity-sedot/" class="link-btn">Sedot WC Kendal</a>
+            <a href="https://infinitysedot.id/jasa-sedot-wc-ungaran-terbaik-infinity-sedot/" class="link-btn">Sedot WC Ungaran</a>
+            <a href="https://infinitysedot.id/jasa-sedot-wc-demak-terbaik-infinity-sedot/" class="link-btn">Sedot WC Demak</a>
+            <a href="https://infinitysedot.id/jasa-sedot-wc-kudus-terbaik-infinity-sedot/" class="link-btn">Sedot WC Kudus</a>
+            <a href="https://infinitysedot.id/jasa-sedot-wc-pati-terbaik-infinity-sedot/" class="link-btn">Sedot WC Pati</a>
+            <a href="https://infinitysedot.id/area-layanan/" class="link-btn">Area Lainnya</a>
+        </section>
+        <section class="card">
+            <h2 class="text-2xl font-semibold text-indigo-600">Keunggulan Layanan INFINITY SEDOT</h2>
+            <p class="mt-4 text-gray-700">
+                INFINITY SEDOT menawarkan layanan sedot WC murah yang tidak hanya hemat biaya, tetapi juga 100% lancar dan amanah. Berikut adalah keunggulan kami:
             </p>
             <ul class="list-disc list-inside mt-4 text-gray-700">
-                <li><strong>Harga Terjangkau:</strong> Kami menawarkan tarif yang kompetitif tanpa mengorbankan kualitas layanan, sehingga Anda mendapatkan solusi sanitasi yang hemat biaya.</li>
-                <li><strong>Pelayanan Cepat:</strong> Tim kami dilengkapi dengan peralatan modern, seperti truk tangki berteknologi tinggi, untuk menyelesaikan pekerjaan dengan cepat dan efisien.</li>
-                <li><strong>Ramah Lingkungan:</strong> Kami memastikan limbah dibuang sesuai standar lingkungan, sehingga tidak mencemari tanah atau air di sekitar Anda.</li>
-                <li><strong>Layanan 24/7:</strong> Kami siap membantu kapan saja, bahkan di tengah malam, untuk menangani keadaan darurat seperti toilet mampet atau septic tank penuh.</li>
-                <li><strong>Tim Profesional:</strong> Tim kami terlatih dan berpengalaman, menjamin pekerjaan dilakukan dengan rapi dan tanpa kerusakan pada properti Anda.</li>
+                <li><strong>Harga Terjangkau:</strong> Tarif kompetitif yang ramah di kantong, cocok untuk semua kalangan.</li>
+                <li><strong>Pelayanan Cepat:</strong> Dilengkapi dengan truk tangki modern dan mesin penyedot canggih untuk hasil yang rapi dan efisien.</li>
+                <li><strong>Komitmen Amanah:</strong> Kami bekerja dengan transparansi dan kejujuran, memastikan kepuasan pelanggan.</li>
+                <li><strong>Ramah Lingkungan:</strong> Limbah dibuang sesuai regulasi untuk menjaga kebersihan lingkungan.</li>
+                <li><strong>Layanan 24/7:</strong> Siap membantu kapan saja, termasuk untuk keadaan darurat seperti toilet mampet.</li>
             </ul>
             <p class="mt-4 text-gray-700">
-                Dengan INFINITY SEDOT, Anda tidak hanya mendapatkan layanan sedot WC murah, tetapi juga ketenangan pikiran karena tahu bahwa kebutuhan sanitasi Anda ditangani oleh para ahli.
+                Dengan INFINITY SEDOT, Anda mendapatkan layanan profesional yang menjamin sistem sanitasi Anda berfungsi dengan baik tanpa repot.
             </p>
+            <a href="https://infinitysedot.id/" class="cta-btn mt-4">Pesan Layanan Sekarang</a>
         </section>
         <section class="card">
             <h2 class="text-2xl font-semibold text-indigo-600">Tips Memilih Penyedia Jasa Sedot WC</h2>
             <p class="mt-4 text-gray-700">
-                Dengan banyaknya penyedia jasa sedot WC di pasaran, memilih yang terbaik bisa menjadi tantangan. Berikut adalah beberapa tips untuk memastikan Anda memilih penyedia jasa yang terpercaya:
+                Memilih penyedia jasa sedot WC yang terpercaya adalah kunci untuk mendapatkan layanan yang lancar dan amanah. Berikut adalah beberapa tips:
             </p>
             <ol class="list-decimal list-inside mt-4 text-gray-700">
-                <li><strong>Periksa Reputasi:</strong> Cari ulasan pelanggan di situs web atau platform media sosial. Penyedia jasa yang baik, seperti INFINITY SEDOT, biasanya memiliki testimoni positif dari pelanggan.</li>
-                <li><strong>Bandingkan Harga:</strong> Pastikan Anda mendapatkan penawaran yang transparan. Harga yang terlalu murah bisa jadi tanda layanan yang kurang berkualitas.</li>
-                <li><strong>Cek Peralatan:</strong> Penyedia jasa profesional menggunakan peralatan modern, seperti selang panjang dan mesin penyedot canggih, untuk hasil yang maksimal.</li>
-                <li><strong>Pastikan Legalitas:</strong> Pilih penyedia jasa yang memiliki izin resmi dan mematuhi regulasi pengelolaan limbah untuk mencegah dampak buruk pada lingkungan.</li>
-                <li><strong>Layanan Tambahan:</strong> Pilih penyedia yang menawarkan layanan tambahan, seperti pembersihan saluran atau inspeksi septic tank, untuk solusi yang lebih lengkap.</li>
+                <li><strong>Periksa Reputasi:</strong> Cari ulasan pelanggan di situs web atau media sosial. INFINITY SEDOT memiliki banyak testimoni positif dari pelanggan puas.</li>
+                <li><strong>Transparansi Harga:</strong> Pastikan harga yang ditawarkan jelas dan sesuai dengan layanan yang diberikan.</li>
+                <li><strong>Peralatan Modern:</strong> Pilih penyedia jasa yang menggunakan alat canggih untuk hasil yang efisien dan bersih.</li>
+                <li><strong>Kepatuhan Lingkungan:</strong> Pastikan penyedia jasa memiliki izin resmi dan mematuhi regulasi pengelolaan limbah.</li>
+                <li><strong>Layanan Komprehensif:</strong> Cari penyedia yang menawarkan solusi tambahan, seperti pembersihan saluran atau inspeksi septic tank.</li>
             </ol>
             <p class="mt-4 text-gray-700">
-                Dengan mempertimbangkan tips ini, Anda dapat menemukan penyedia jasa yang sesuai dengan kebutuhan dan anggaran Anda. INFINITY SEDOT memenuhi semua kriteria ini, menjadikannya pilihan terbaik untuk layanan sedot WC murah.
+                Dengan memilih INFINITY SEDOT, Anda mendapatkan layanan yang memenuhi semua kriteria ini, menjamin hasil yang 100% lancar dan amanah.
             </p>
         </section>
         <section class="card">
-            <h2 class="text-2xl font-semibold text-indigo-600">Mengapa INFINITY SEDOT?</h2>
+            <h2 class="text-2xl font-semibold text-indigo-600">Pasang Iklan Sedot WC di INFINITY SEDOT</h2>
             <p class="mt-4 text-gray-700">
-                INFINITY SEDOT adalah penyedia jasa sedot WC murah yang berdedikasi untuk memberikan solusi sanitasi terbaik di Indonesia. Berikut adalah alasan mengapa kami menjadi pilihan utama pelanggan:
-            </p>
-            <ul class="list-disc list-inside mt-4 text-gray-700">
-                <li><strong>Tarif Kompetitif:</strong> Kami menawarkan harga yang terjangkau tanpa kompromi pada kualitas.</li>
-                <li><strong>Teknologi Modern:</strong> Peralatan canggih kami memastikan pekerjaan selesai dengan cepat dan bersih.</li>
-                <li><strong>Layanan Darurat:</strong> Kami tersedia 24 jam sehari, 7 hari seminggu, untuk menangani keadaan darurat.</li>
-                <li><strong>Komitmen Lingkungan:</strong> Kami mematuhi standar pengelolaan limbah untuk menjaga lingkungan tetap bersih dan aman.</li>
-            </ul>
-            <p class="mt-4 text-gray-700">
-                Dengan pengalaman bertahun-tahun dan tim yang terlatih, INFINITY SEDOT menjamin kepuasan pelanggan dengan layanan yang 100% lancar. Hubungi kami sekarang di <a href="https://infinitysedot.id/" class="text-indigo-600 hover:underline">Sedot WC Terbaik</a> untuk solusi sanitasi terbaik!
+                Ingin mempromosikan layanan sedot WC Anda? <a href="https://infinitysedot.id/pasang-iklan-sedot-wc-eksklusif-di-sini-aja/" class="text-indigo-600 hover:underline">Pasang Iklan Sedot WC</a> di INFINITY SEDOT sekarang! Kami menawarkan platform eksklusif untuk memasarkan jasa sedot WC Anda kepada ribuan pelanggan potensial di berbagai wilayah. Dengan jangkauan luas dan reputasi terpercaya, iklan Anda akan menarik perhatian pelanggan yang membutuhkan layanan sanitasi berkualitas. Hubungi kami melalui <a href="https://infinitysedot.id/pasang-iklan-sedot-wc-eksklusif-di-sini-aja/" class="text-indigo-600 hover:underline">infinitysedot.id/pasang-iklan</a> untuk informasi lebih lanjut dan mulailah menjangkau pelanggan baru hari ini!
             </p>
         </section>
         <section class="card">
             <h2 class="text-2xl font-semibold text-indigo-600">Kesimpulan</h2>
             <p class="mt-4 text-gray-700">
-                Layanan sedot WC murah dari <a href="https://infinitysedot.id/" class="text-indigo-600 hover:underline">INFINITY SEDOT</a> adalah solusi terbaik untuk menjaga sistem sanitasi Anda tetap berfungsi dengan baik. Dengan harga yang terjangkau, pelayanan cepat, dan komitmen terhadap lingkungan, kami memastikan bahwa kebutuhan sanitasi Anda terpenuhi tanpa repot. Jangan biarkan masalah septic tank mengganggu kenyamanan Anda—hubungi INFINITY SEDOT sekarang dan nikmati layanan yang 100% lancar!
+                Layanan sedot WC murah dari <a href="https://infinitysedot.id/" class="text-indigo-600 hover:underline">INFINITY SEDOT</a> adalah solusi sanitasi terbaik untuk rumah Anda. Dengan harga terjangkau, pelayanan cepat, dan komitmen amanah, kami menjamin sistem sanitasi Anda berjalan lancar tanpa masalah. Melayani Semarang, Kendal, Ungaran, Demak, Kudus, Pati, dan area lainnya, INFINITY SEDOT siap membantu kapan saja, termasuk untuk keadaan darurat. Jangan biarkan masalah septic tank mengganggu kenyamanan Anda—hubungi kami sekarang dan nikmati layanan yang 100% lancar dan amanah!
             </p>
+            <a href="https://infinitysedot.id/" class="cta-btn mt-4">Hubungi INFINITY SEDOT</a>
         </section>
     </div>
     <footer>
